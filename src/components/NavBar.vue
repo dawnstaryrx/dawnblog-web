@@ -8,7 +8,6 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <!-- <a class="nav-link" aria-current="page" href="/home/">首页</a> -->
           <router-link :class="route_name == 'blog_index' ? 'nav-link active' : 'nav-link' " aria-current="page" :to="{name: 'index'}">首页</router-link>
         </li>
         <li class="nav-item">
@@ -33,10 +32,10 @@
           </ul>
         </li>
       </ul>
-      <ul class="navbar-nav">
+      <ul v-if="rightShow()" class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            yrx
+            {{ username }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><router-link class="dropdown-item" :to="{name: 'user_home_index'}">我的空间</router-link></li>
@@ -45,6 +44,14 @@
             <li><hr class="dropdown-divider"></li>
             <li><a @click="logout()" class="dropdown-item" href="#">退出登录</a></li>
           </ul>
+        </li>
+      </ul>
+      <ul v-else class="navbar-nav">
+        <li class="nav-item">
+          <router-link :class="route_name == 'user_login' ? 'nav-link active' : 'nav-link' " :to="{name: 'user_login'}">登录</router-link>
+        </li>
+        <li class="注册">
+          <router-link :class="route_name == 'user_register' ? 'nav-link active' : 'nav-link' " :to="{name: 'user_register'}">注册</router-link>
         </li>
       </ul>
     </div>
@@ -56,7 +63,17 @@
 import {useRoute} from 'vue-router';
 import { computed } from 'vue';
 import { useTokenStore } from '@/stores/token.js'
+import { useUserInfoStore } from '@/stores/userInfo.js'
+
+
+
 export default {
+    
+    data() {
+          return {
+              username: ""
+          }
+      },
     setup(){
         const route = useRoute();
         let route_name = computed(() => route.name);
@@ -64,10 +81,22 @@ export default {
             route_name
         }
     },
+
     methods: {
       logout(){
         const tokenStore = useTokenStore()
         tokenStore.removeToken();
+      },
+      rightShow(){
+        const tokenStore = useTokenStore()
+        var nowtoken = tokenStore.token
+        
+
+        if(nowtoken !== ''){
+          this.username = useUserInfoStore().info.username
+          return true
+        }
+        return false
       }
     },
 }

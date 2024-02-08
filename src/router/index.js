@@ -121,6 +121,7 @@ const router = createRouter({
 })
 
 import { useTokenStore } from '@/stores/token.js'
+import { useUserInfoStore } from '@/stores/userInfo.js'
 // 解析token，判断有没有过期
 import { jwtDecode } from "jwt-decode";
 
@@ -128,7 +129,8 @@ import { jwtDecode } from "jwt-decode";
 // next的表示将页面要不要执行下一步操作，写之前首先要记录每一个未授权界面
 router.beforeEach((to, from, next) => {
   const tokenStore = useTokenStore()
-  console.log("111" + to.meta.requireAuth);
+  // pinia出来
+  const userInfoStore = useUserInfoStore()
   var nowtoken = tokenStore.token;
   if (to.meta.requireAuth && (nowtoken === "" || nowtoken == null)) {
     next({name: "user_login"});

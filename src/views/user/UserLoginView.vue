@@ -33,8 +33,8 @@
                             <label for="password" class="form-label" style="margin-right: 10px;">验证码</label>
                         </span>
                         <span class="login-by-code-code" >
-                            <img src="http://localhost:8080/createImageCode" 
-                            onclick="this.src='http://localhost:8080/createImageCode?d='+new Date()+1">
+                            <img src="http://127.0.0.1:8080/createImageCode" 
+                            onclick="this.src='http://127.0.0.1:8080/createImageCode?d='+new Date()+1">
                         </span>
                         <input v-model="loginByPasswordData.code" type="text" class="form-control" placeholder="请输入验证码" aria-label="Recipient's username" aria-describedby="button-addon2">
                     </div>
