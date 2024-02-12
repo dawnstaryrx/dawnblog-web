@@ -24,7 +24,8 @@
                         <label for="repassword" class="form-label">确认密码</label>
                         <input autocomplete="on" v-model="registerData.repwd" type="password"  class="form-control" id="repassword" placeholder="请再次输入密码">
                     </div>
-                    <button @click="register()" type="submit" class="btn btn-primary submit-button">提交</button>
+                    <button @click="register()" @keyup.enter="register()"
+                    type="submit" class="btn btn-primary submit-button">提交</button>
                     
                 </form>
 

@@ -16,7 +16,9 @@
                         <input  v-model="loginByCodeData.code" type="text" class="form-control" placeholder="请输入验证码" aria-label="Recipient's username" aria-describedby="button-addon2">
                         <button @click="sendLoginCode()" class="btn btn-outline-secondary" type="button" id="button-addon2">发送</button>
                     </div>
-                    <button @click="loginByCode()" type="submit" class="btn btn-primary submit-button">提交</button>
+                    <button @click="loginByCode()" type="submit" 
+                    class="btn btn-primary submit-button" @keyup.enter="loginByCode()"
+                    >提交</button>
                 </form>
 
                 <form v-if="login_way === 1"  target="iframe">
@@ -39,7 +41,7 @@
                         <input v-model="loginByPasswordData.code" type="text" class="form-control" placeholder="请输入验证码" aria-label="Recipient's username" aria-describedby="button-addon2">
                     </div>
                     <button type="submit" class="btn btn-primary submit-button" 
-                    @click="loginByPassword()"
+                    @click="loginByPassword()" @keyup.enter="loginByPassword()"
                     >提交</button>
                 </form>
 
