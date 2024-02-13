@@ -103,5 +103,11 @@ export default {
 </script>
 
 <style scoped>
+.dropdown:hover>.dropdown-menu {
+    display: block;
+}
 
+.dropdown>.dropdown-toggle:active {
+    pointer-events: none;
+}
 </style>

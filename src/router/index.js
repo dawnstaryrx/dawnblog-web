@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// 主页面
 import AnnouceView from "@/views/annouce/AnnouceView"
 import NotFound from "@/views/error/NotFound"
 import HomeIndexView from "@/views/home/HomeIndexView"
@@ -10,8 +11,10 @@ import WriteIndexView from "@/views/write/WriteIndexView"
 import ResouceIndexView from "@/views/resouce/ResouceIndexView"
 import UserLoginView from "@/views/user/UserLoginView"
 import UserRegisterView from "@/views/user/UserRegisterView"
-
-
+// 用户个人空间
+import CategoryListView from '@/views/user/category/CategoryListView.vue'
+import CategoryAddView from '@/views/user/category/CategoryAddView.vue'
+import MyArticleListView from '@/views/user/article/MyArticleListView'
 const routes = [
   {
     path: "/",
@@ -20,46 +23,59 @@ const routes = [
     meta: {
       requireAuth: true
     }
-  },
-  {
+  },{
     path: "/index/",
     name: "blog_index",
     component: HomeIndexView,
     meta: {
       requireAuth: true
     }
-  },
-  {
+  },{
     path: "/annouce/",
     name: "annouce_index",
     component: AnnouceView,
     meta: {
       requireAuth: true
     }
-  },
-  {
+  },{
     path: "/404/",
     name: "not_found_index",
     component: NotFound,
     meta: {
       requireAuth: false
     }
-  },
-  {
+  },{
     path: "/music/",
     name: "music_index",
     component: MusicIndexView,
     meta: {
       requireAuth: true
     }
-  },
-  {
-    path: "/user/home/",
+  },{
+    path: "/user/home",
     name: "user_home_index",
     component: UserHomeIndexView,
     meta: {
       requireAuth: true
-    }
+    },
+  },
+  {
+    path: "/category/list",
+    name: "category_list",
+    component:CategoryListView,
+    requireAuth: true
+  },
+  {
+    path: "/category/add",
+    name: "category_add",
+    component:CategoryAddView,
+    requireAuth: true
+  },
+  {
+    path: "/user/article/list",
+    name: "my_article_list",
+    component:MyArticleListView,
+    requireAuth: true
   },
   {
     path: "/user/info/",
