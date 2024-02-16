@@ -40,7 +40,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><router-link class="dropdown-item" :to="{name: 'user_home_index'}">我的空间</router-link></li>
             <li><router-link class="dropdown-item" :to="{name: 'user_info_index'}">个人信息</router-link></li>
-            <li><a class="dropdown-item" href="#">后台管理</a></li>
+            <li v-if='role === "2"'><router-link class="dropdown-item" :to="{name: 'manage_index'}">后台管理</router-link></li>
             <li><hr class="dropdown-divider"></li>
             <li><a @click="logout()" class="dropdown-item" href="#">退出登录</a></li>
           </ul>
@@ -68,10 +68,14 @@ import { useUserInfoStore } from '@/stores/userInfo.js'
 
 
 export default {
-    
+    created() {
+      const userInfoStore = useUserInfoStore()
+      this.role =   (userInfoStore.info.role) + ''
+    },
     data() {
           return {
-              username: ""
+              username: "",
+              role: ''
           }
       },
     setup(){

@@ -5,21 +5,28 @@
       <div class="card-body">
 
         <div class="row g-2">
-          <div class="col-md">
+          <div class="col-md-8">
             <div class="form-floating">
               <input v-model="title" type="text" class="form-control" id="floatingInputGrid" placeholder="请输入文章标题...">
               <label for="floatingInputGrid">标题</label>
             </div>
           </div>
-          <div class="col-md">
+          <div class="col-md-2">
             <div class="form-floating" >
               <select class="form-select" id="floatingSelectGrid" v-model="category">
                 <option v-for="item in categoryList" :key="item.key"   :value=item.key>{{ item.value }}</option>
-                <!-- <option value="1">Java</option>
-                <option value="2">Linux</option>
-                <option value="3">算法</option> -->
               </select>
               <label for="floatingSelectGrid">文章分类</label>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-floating" >
+              <select class="form-select" id="floatingSelectGrid" v-model="state">
+                <option value=1>仅本人可见</option>
+                <option value=2>关注者可见</option>
+                <option value=3 selected>所有人可见</option>
+              </select>
+              <label for="floatingSelectGrid">可见范围</label>
             </div>
           </div>
         </div>
@@ -32,7 +39,7 @@
     </div>
 
     <span class="button-left">
-          <button type="button" class="btn btn-secondary">存为草稿</button>
+          <button @click="save()" type="button" class="btn btn-secondary">存为草稿</button>
           <div class="btn-group dropup" role="group">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               草稿箱
@@ -44,11 +51,7 @@
           </div>
         </span>
         <span class="button-right">
-          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-          <button type="button" class="btn btn-danger">私密</button>
-          <button type="button" class="btn btn-warning">关注者可见</button>
-          <button type="button" class="btn btn-success">公开</button>
-        </div>
+          <button @click="add()" type="button" class="btn btn-success">发布！</button>
         </span>
 
   </div>
@@ -56,6 +59,9 @@
 
 <script>
 import {categoryListSuccessShowService} from "@/api/category.js"
+import {articleAddService} from "@/api/article.js"
+import commonUtil from '@/utils/alertUtil';
+import { useUserInfoStore } from '@/stores/userInfo.js'
 export default {
   created(){
     let categoryList = categoryListSuccessShowService().data;
@@ -73,15 +79,55 @@ export default {
       text: '',
       title: '',
       category: '',
+      state:'3',
       categoryList: [],
     }
   },
 
-    // methods: {
-    //   handleCopyCodeSuccess(code) {
-    //     console.log(code);
-    //   },
-    // },
+    methods: {
+      add(){
+        const userInfoStore = useUserInfoStore()
+        let userId = userInfoStore.info.id
+        let articleInfo = {
+            "author": userId,
+            "title": this.title,
+            "content": this.text,
+            "categoryId": this.category,
+            "state": this.state,
+        }
+        let result = articleAddService(articleInfo)
+        if(result.code === 1){
+            commonUtil.message(result.message, "danger");
+        }
+        if(result.code === 0){
+            commonUtil.message("恭喜你，发布成功！", "success");
+            this.text = "";
+            this.title = "";
+            this.category = "";
+        }
+      },
+      save(){
+        const userInfoStore = useUserInfoStore()
+        let userId = userInfoStore.info.id
+        let articleInfo = {
+            "author": userId,
+            "title": this.title,
+            "content": this.text,
+            "categoryId": this.category,
+            "state": 0,
+        }
+        let result = articleAddService(articleInfo)
+        if(result.code === 1){
+            commonUtil.message(result.message, "danger");
+        }
+        if(result.code === 0){
+            commonUtil.message("恭喜你，保存成功！", "success");
+            this.text = "";
+            this.title = "";
+            this.category = "";
+        }
+      },
+    },
 
 };
 </script>

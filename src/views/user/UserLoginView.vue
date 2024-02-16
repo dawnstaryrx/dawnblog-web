@@ -108,7 +108,6 @@ export default {
             }
             if(result.code === 0){
                 commonUtil.message(result.message, "success");
-                
             }
             
         },

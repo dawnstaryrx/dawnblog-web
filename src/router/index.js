@@ -15,6 +15,10 @@ import UserRegisterView from "@/views/user/UserRegisterView"
 import CategoryListView from '@/views/user/category/CategoryListView.vue'
 import CategoryAddView from '@/views/user/category/CategoryAddView.vue'
 import MyArticleListView from '@/views/user/article/MyArticleListView'
+// 后台管理
+import ManageIndexView from '@/views/manage/ManageIndexView.vue'
+import ManageCategoryExamineView from "@/views/manage/ManageCategoryExamineView.vue"
+import ManageCategoryEditView from "@/views/manage/ManageCategoryEditView.vue"
 const routes = [
   {
     path: "/",
@@ -126,6 +130,32 @@ const routes = [
     }
   },
   {
+    path: "/manage/",
+    name: "manage_index",
+    component: ManageIndexView,
+    meta: {
+      requireAuth: true
+    },
+    children:[
+      {
+        path: "category/examine/",
+        name: "manage_category_examine_index",
+        component: ManageCategoryExamineView,
+        meta: {
+          requireAuth: true
+        },
+      },
+      {
+        path: "category/edit/",
+        name: "manage_category_edit_index",
+        component: ManageCategoryEditView,
+        meta: {
+          requireAuth: true
+        },
+      },
+    ]
+  },
+  {
     path: "/:catchAll(.*)",
     redirect: "/404/",
   }
@@ -140,6 +170,7 @@ import { useTokenStore } from '@/stores/token.js'
 import { useUserInfoStore } from '@/stores/userInfo.js'
 // 解析token，判断有没有过期
 import { jwtDecode } from "jwt-decode";
+import ManageCategoryExamineViewVue from '@/views/manage/ManageCategoryExamineView.vue'
 
 // to跳转到哪个页面， from表示从哪个页面跳转过去
 // next的表示将页面要不要执行下一步操作，写之前首先要记录每一个未授权界面

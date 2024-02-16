@@ -1,6 +1,6 @@
 <template>
     <user-nav-bar>
-        <table class="table">
+            <table class="table">
             <thead>
                 <tr>
                 <th scope="col">#</th>
@@ -24,6 +24,7 @@
                 </tr>
             </tbody>
         </table>
+        
     </user-nav-bar>
 
 </template>
@@ -53,5 +54,4 @@ export default {
 </script>
 
 <style>
-
 </style>

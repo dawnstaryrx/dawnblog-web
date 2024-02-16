@@ -107,9 +107,12 @@
                         </ul>
                     </div>
                     <div class="card-body">
-                        <slot>
+                        <div style="height: 72vh;overflow: auto;">
+                            <slot>
                             我是默认内容
-                        </slot>
+                            </slot>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

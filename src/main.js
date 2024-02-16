@@ -80,14 +80,5 @@ app.use(VMdEditor);
 app.use(InfiniteLoading, { /* 配置 */ });
 
 
-
-
 app.mount('#app')
-
-
-
-
-
-
-
 
