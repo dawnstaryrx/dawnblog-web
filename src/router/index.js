@@ -167,17 +167,14 @@ const router = createRouter({
 })
 
 import { useTokenStore } from '@/stores/token.js'
-import { useUserInfoStore } from '@/stores/userInfo.js'
 // 解析token，判断有没有过期
 import { jwtDecode } from "jwt-decode";
-import ManageCategoryExamineViewVue from '@/views/manage/ManageCategoryExamineView.vue'
 
 // to跳转到哪个页面， from表示从哪个页面跳转过去
 // next的表示将页面要不要执行下一步操作，写之前首先要记录每一个未授权界面
 router.beforeEach((to, from, next) => {
   const tokenStore = useTokenStore()
   // pinia出来
-  const userInfoStore = useUserInfoStore()
   var nowtoken = tokenStore.token;
   if (to.meta.requireAuth && (nowtoken === "" || nowtoken == null)) {
     next({name: "user_login"});
