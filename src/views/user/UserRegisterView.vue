@@ -48,10 +48,6 @@
 </template>
 
 <script>
-
-
-
-// import { ref } from "vue";
 import LoginRegisterContentField from "@/components/LoginRegisterContentField.vue"
 import {userSendRegisterCodeService, userRegisterService} from "@/api/user.js"
 import commonUtil from '@/utils/alertUtil';
