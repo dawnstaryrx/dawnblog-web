@@ -3,8 +3,6 @@ import App from './App.vue'
 import router from './router'
 import {createPinia} from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-// 无限滚动
-import InfiniteLoading from 'vue-infinite-loading';
 // 编辑器
 import VMdEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
@@ -46,6 +44,19 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import matlab from 'highlight.js/lib/languages/matlab';
 import python from 'highlight.js/lib/languages/python';
 import sql from 'highlight.js/lib/languages/sql';
+// 引入预览组件
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import '@kangc/v-md-editor/lib/style/preview.css';
+import '@kangc/v-md-editor/lib/theme/style/github.css';
+// 复制链接
+import Clipboard from 'v-clipboard'
+
+
+VMdPreview.use(githubTheme, {
+    Hljs: hljs,
+});
+
+
 hljsc.registerLanguage('c', c);
 hljsc.registerLanguage('cpp', cpp);
 hljsc.registerLanguage('css', css);
@@ -77,7 +88,8 @@ pinia.use(piniaPluginPersistedstate)
 app.use(pinia)
 app.use(router)
 app.use(VMdEditor);
-app.use(InfiniteLoading, { /* 配置 */ });
+app.use(VMdPreview);
+app.use(Clipboard)
 
 
 app.mount('#app')

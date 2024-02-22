@@ -11,6 +11,8 @@ import WriteIndexView from "@/views/write/WriteIndexView"
 import ResouceIndexView from "@/views/resouce/ResouceIndexView"
 import UserLoginView from "@/views/user/UserLoginView"
 import UserRegisterView from "@/views/user/UserRegisterView"
+// 文章
+import ArticleIndexView from "@/views/home/ArticleIndexView"
 // 用户个人空间
 import CategoryListView from '@/views/user/category/CategoryListView.vue'
 import CategoryAddView from '@/views/user/category/CategoryAddView.vue'
@@ -23,33 +25,42 @@ const routes = [
   {
     path: "/",
     name: "index",
-    redirect: "/index/",
+    redirect: "/index",
     meta: {
       requireAuth: true
     }
   },{
-    path: "/index/",
+    path: "/index",
     name: "blog_index",
     component: HomeIndexView,
     meta: {
       requireAuth: true
     }
-  },{
-    path: "/annouce/",
+  },
+  {
+    path: "/article/:id",
+    name: "article_index",
+    component: ArticleIndexView,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path: "/annouce",
     name: "annouce_index",
     component: AnnouceView,
     meta: {
       requireAuth: true
     }
   },{
-    path: "/404/",
+    path: "/404",
     name: "not_found_index",
     component: NotFound,
     meta: {
       requireAuth: false
     }
   },{
-    path: "/music/",
+    path: "/music",
     name: "music_index",
     component: MusicIndexView,
     meta: {
@@ -82,7 +93,7 @@ const routes = [
     requireAuth: true
   },
   {
-    path: "/user/info/",
+    path: "/user/info",
     name: "user_info_index",
     component: UserInfoIndexView,
     meta: {
@@ -90,7 +101,7 @@ const routes = [
     }
   },
   {
-    path: "/write/",
+    path: "/write",
     name: "write_index",
     component: WriteIndexView,
     meta: {
@@ -98,7 +109,7 @@ const routes = [
     }
   },
   {
-    path: "/todo/",
+    path: "/todo",
     name: "todo_index",
     component: ToDoIndexView,
     meta: {
@@ -106,7 +117,7 @@ const routes = [
     }
   },
   {
-    path: "/resouce/",
+    path: "/resouce",
     name: "resouce_index",
     component: ResouceIndexView,
     meta: {
@@ -114,7 +125,7 @@ const routes = [
     }
   },
   {
-    path: "/user/login/",
+    path: "/user/login",
     name: "user_login",
     component: UserLoginView,
     meta: {
@@ -122,7 +133,7 @@ const routes = [
     }
   },
   {
-    path: "/user/register/",
+    path: "/user/register",
     name: "user_register",
     component: UserRegisterView,
     meta: {
@@ -130,7 +141,7 @@ const routes = [
     }
   },
   {
-    path: "/manage/",
+    path: "/manage",
     name: "manage_index",
     component: ManageIndexView,
     meta: {
@@ -138,7 +149,7 @@ const routes = [
     },
     children:[
       {
-        path: "category/examine/",
+        path: "category/examine",
         name: "manage_category_examine_index",
         component: ManageCategoryExamineView,
         meta: {
@@ -146,7 +157,7 @@ const routes = [
         },
       },
       {
-        path: "category/edit/",
+        path: "category/edit",
         name: "manage_category_edit_index",
         component: ManageCategoryEditView,
         meta: {
@@ -157,7 +168,7 @@ const routes = [
   },
   {
     path: "/:catchAll(.*)",
-    redirect: "/404/",
+    redirect: "/404",
   }
 ]
 

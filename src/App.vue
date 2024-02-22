@@ -41,7 +41,8 @@ export default {
 
 <style>
 body{
-  background-image: url("@/assets/background.jpg");
+  /* background-image: url("@/assets/background.jpg"); */
+  background-color: rgb(216, 227, 231);
   background-size: cover;
 }
 </style>

@@ -37,8 +37,6 @@ export default {
     created() {
         let result = categoryListShowService().data;
         this.categoryList = result
-        console.log(result)
-        console.log(typeof(result))
     },
     data() {
         return {
@@ -47,6 +45,7 @@ export default {
     },
     components: { UserNavBar }, 
     methods: {
+        
     },
     
 }

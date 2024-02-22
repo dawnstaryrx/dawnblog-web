@@ -88,14 +88,14 @@ export default {
 </script >
 
 <style scope>
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 0 !important;
     height: 0 !important;
     overflow: hidden;
     display: none;
     background: rgba(0, 0, 0, 0);
     opacity: 0;
-}
+} */
 
 .container-fluid {
     height: 100vh;

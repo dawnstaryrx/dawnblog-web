@@ -92,11 +92,8 @@ export default {
             }
 
             let result = userRegisterService(transRegisterData)
-            // console.log(result)
             if(result.code === 1){
                 commonUtil.message(result.message, "danger");
-                // commonUtil.pushSleep(300)
-                // router.push('/')
             }
             if(result.code === 0){
                 commonUtil.message(result.message, "success");
