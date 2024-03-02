@@ -4,7 +4,7 @@ import AnnouceView from "@/views/annouce/AnnouceView"
 import NotFound from "@/views/error/NotFound"
 import HomeIndexView from "@/views/home/HomeIndexView"
 import MusicIndexView from "@/views/music/MusicIndexView"
-import ToDoIndexView from "@/views/todo/ToDoIndexView"
+import RandomIndexView from "@/views/random/RandomIndexView"
 import UserHomeIndexView from "@/views/user/UserHomeIndexView"
 import UserInfoIndexView from "@/views/user/UserInfoIndexView"
 import WriteIndexView from "@/views/write/WriteIndexView"
@@ -109,9 +109,9 @@ const routes = [
     }
   },
   {
-    path: "/todo",
-    name: "todo_index",
-    component: ToDoIndexView,
+    path: "/random",
+    name: "random_index",
+    component: RandomIndexView,
     meta: {
       requireAuth: true
     }

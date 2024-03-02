@@ -61,6 +61,33 @@ export const articleListShowService = (pageNum, pageSize) => {
     return result;
 }
 
+// 获取我的文章列表
+export const articleMyListShowService = (pageNum, pageSize) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: "http://127.0.0.1:8080/article/my",
+        data:{
+            pageNum: pageNum,
+            pageSize: pageSize
+        },
+        type: "get",
+        async : false,
+        success(resp){
+            result = resp;
+        },
+        error(resp){
+            result = resp;
+        }
+    })
+    return result;
+}
+
 // 获取文章详情
 export const articleDetailShowService = (id) => {
     const tokenStore = useTokenStore()
@@ -71,10 +98,7 @@ export const articleDetailShowService = (id) => {
         headers: {
             "Authorization": nowtoken
         },
-        url: "http://127.0.0.1:8080/articleDetail",
-        data:{
-            id: id
-        },
+        url: "http://127.0.0.1:8080/article/"+id,
         type: "get",
         async : false,
         success(resp){

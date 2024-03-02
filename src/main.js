@@ -50,6 +50,8 @@ import '@kangc/v-md-editor/lib/style/preview.css';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
 // 复制链接
 import Clipboard from 'v-clipboard'
+// 随机抽奖
+import VueLuckyCanvas from '@lucky-canvas/vue'
 
 
 VMdPreview.use(githubTheme, {
@@ -90,6 +92,7 @@ app.use(router)
 app.use(VMdEditor);
 app.use(VMdPreview);
 app.use(Clipboard)
+app.use(VueLuckyCanvas)
 
 
 app.mount('#app')

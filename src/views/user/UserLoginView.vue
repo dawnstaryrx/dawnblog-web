@@ -76,7 +76,7 @@ export default {
     components: { LoginRegisterContentField },
     data() {
         return {
-            login_way: -1,
+            login_way: 1,
             loginByCodeData:{
                 email: "",
                 code: "",

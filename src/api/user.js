@@ -23,7 +23,7 @@ import { useTokenStore } from '@/stores/token.js'
 //     });
 // });
 
-// 获取用户信息
+// 获取当前用户信息
 export const userInfoService = () => {
     const tokenStore = useTokenStore()
     var nowtoken = tokenStore.token
@@ -46,7 +46,29 @@ export const userInfoService = () => {
     return result;
 }
 
+// 获取指定ID用户信息
+export const userInfoByIdService = (id) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: "http://127.0.0.1:8080/user/"+id,
+        type: "get",
+        async : false,
+        success(resp){
+            result = resp;
+        },
+        error(resp){
+            result = resp;
+        }
+    })
+    return result;
+}
 
+// 邮箱验证码登录
 export const userLoginByCodeService = (email, code) => {
     var result;
     $.ajax({
@@ -160,6 +182,7 @@ export const userGetLoginImgCodeService = () => {
     return result;
 }
 
+// 密码登录
 export const userLoginByPasswordService = (email, password, code) => {
     var result;
     $.ajax({
