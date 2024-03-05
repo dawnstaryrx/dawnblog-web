@@ -110,3 +110,29 @@ export const articleDetailShowService = (id) => {
     })
     return result;
 }
+
+// 删除文章
+export const articleDeleteService = (id) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: "http://127.0.0.1:8080/article",
+        data:{
+            id:id
+        },
+        type: "delete",
+        async : false,
+        success(resp){
+            result = resp;
+        },
+        error(resp){
+            result = resp;
+        }
+    })
+    return result;
+}

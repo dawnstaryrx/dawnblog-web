@@ -94,6 +94,5 @@ app.use(VMdPreview);
 app.use(Clipboard)
 app.use(VueLuckyCanvas)
 
-
 app.mount('#app')
 

@@ -105,10 +105,10 @@
                 <div class="card" style="margin-top: 20px">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-3">
-                                <img src="@/assets/logo.png" alt="" width="80px">
+                            <div class="col-4">
+                                <img :src="article_user.avatar" alt="" width="100%">
                             </div>
-                            <div class="col-9">
+                            <div class="col-8">
                                 <div style="font-weight: bolder;">
                                     作者： {{ article_user.username }}
                                 </div>

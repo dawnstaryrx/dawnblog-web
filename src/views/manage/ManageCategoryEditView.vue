@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import UserNavBar from "@/components/UserNavBar.vue"
+// import UserNavBar from "@/components/UserNavBar.vue"
 import commonUtil from '@/utils/alertUtil';
 import {categoryListShowService, categoryManageDeleteService, categoryManageUpdateService} from "@/api/category.js"
 
@@ -117,7 +117,7 @@ export default {
             },
         }
     },
-    components: { UserNavBar }, 
+    // components: { UserNavBar }, 
     methods: {
         // 生成id，并绑定
         gernerateDBTe(id){

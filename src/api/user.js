@@ -11,18 +11,6 @@ import commonUtil from '@/utils/alertUtil';
 
 import { useTokenStore } from '@/stores/token.js'
 
-// $(function () {
-//     const tokenStore = useTokenStore()
-//     var nowtoken = tokenStore.token
-//     // tokenStore.removeToken();
-//     // 设置jQuery Ajax全局的参数  
-//     $.ajaxSetup({
-//         headers: {
-//             "Authorization": nowtoken
-//         },
-//     });
-// });
-
 // 获取当前用户信息
 export const userInfoService = () => {
     const tokenStore = useTokenStore()
@@ -204,5 +192,83 @@ export const userLoginByPasswordService = (email, password, code) => {
     return result;
 }
 
+// 更新用户信息
+export const userInfoUpdateService = (username, introduction) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: "http://127.0.0.1:8080/user/updateName",
+        data: {
+            name: username,
+            introduction: introduction
+        },
+        type: "patch",
+        async : false,
+        success(resp){
+            result = resp;
+        },
+        error(resp){
+            result = resp;
+        }
+    })
+    return result;
+}
 
+// 更新密码
+export const userPwdUpdateService = (pwd) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: "http://127.0.0.1:8080/user/updatePwd",
+        data: JSON.stringify({
+            "oldPwd": pwd.oldPwd,
+            "newPwd": pwd.newPwd,
+            "rePwd": pwd.rePwd
+        }),
+        contentType: "application/json",
+        dataType:"json",
+        type: "patch",
+        async : false,
+        success(resp){
+            result = resp;
+        },
+        error(resp){
+            result = resp;
+        }
+    })
+    return result;
+}
+
+// 更新头像
+export const userAvatarUpdateService = (file) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: "http://127.0.0.1:8080/upload/avatar",
+        data:file,
+        processData: false,
+        contentType: false,
+        type: "post",
+        async : false,
+        success(resp){
+            result = resp;
+        },
+        error(resp){
+            result = resp;
+        }
+    })
+    return result;
+}
 
