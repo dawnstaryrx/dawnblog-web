@@ -14,7 +14,7 @@
             </div>
           </div>
         </div>
-        <div class="col-2">
+        <div class="col-2" v-if="now_user.id == to_user.id">
           
             <router-link :to="'/article/'+item.id + '/edit'" target="_blank">
               <button  class="btn btn-primary" style="margin-right: 2px;">
@@ -79,11 +79,20 @@
 <script>
 import UserNavBar from "@/components/UserNavBar.vue"
 import commonUtil from '@/utils/alertUtil';
+import { useUserInfoStore } from '@/stores/userInfo.js'
 import { articleMyListShowService, articleDeleteService } from "@/api/article.js"
+import {userInfoByIdService} from '@/api/user.js'
 export default {
   components: { UserNavBar },
+  mounted(){
+    const userInfoStore = useUserInfoStore()
+        this.now_user = userInfoStore.info
+  },
   created() {
-    let result = articleMyListShowService(this.pageNum, this.pageSize, 3);
+    this.id = this.$route.params.id
+    this.to_user = userInfoByIdService(this.id).data
+
+    let result = articleMyListShowService(this.pageNum, this.pageSize, 3, this.to_user.id);
     this.articles = JSON.parse(JSON.stringify(result.data.items))
   },
   data() {
@@ -91,6 +100,9 @@ export default {
       pageNum: 1,
       pageSize: 10,
       articles: [],
+      to_user:{},
+      now_user:{},
+      id:'',
     }
   },
   methods: {

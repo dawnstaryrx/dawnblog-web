@@ -16,10 +16,18 @@
 import UserNavBar from "@/components/UserNavBar.vue"
 import commonUtil from '@/utils/alertUtil';
 import {categoryUserAddService} from "@/api/category.js"
+import {userInfoByIdService} from '@/api/user.js'
+
 export default {
     components: { UserNavBar }, 
+    created(){
+        this.id = this.$route.params.id
+        this.to_user = userInfoByIdService(this.id).data
+    },
     data() {
         return {
+            to_user:{},
+            id:0,
             categoryName:""
         }
     },

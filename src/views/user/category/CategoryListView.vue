@@ -32,14 +32,19 @@
 <script>
 import UserNavBar from "@/components/UserNavBar.vue"
 import {categoryListShowService} from "@/api/category.js"
+import {userInfoByIdService} from '@/api/user.js'
 
 export default {
     created() {
+        this.id = this.$route.params.id
+        this.to_user = userInfoByIdService(this.id).data
         let result = categoryListShowService().data;
         this.categoryList = result
     },
     data() {
         return {
+            id: 0,
+            to_user: {},
             categoryList:{}
         }
     },

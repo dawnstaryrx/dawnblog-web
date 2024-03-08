@@ -18,10 +18,14 @@ import MyCollectListView from '@/views/user/article/MyCollectListView';
 import CategoryListView from '@/views/user/category/CategoryListView.vue'
 import CategoryAddView from '@/views/user/category/CategoryAddView.vue'
 import MyArticleListView from '@/views/user/article/MyArticleListView'
+import UserFollowersView from '@/views/user/follow/UserFollowersView'
+import UserFollowingView from '@/views/user/follow/UserFollowingView'
 // 后台管理
 import ManageIndexView from '@/views/manage/ManageIndexView.vue'
 import ManageCategoryExamineView from "@/views/manage/ManageCategoryExamineView.vue"
 import ManageCategoryEditView from "@/views/manage/ManageCategoryEditView.vue"
+import ManageArticleView from "@/views/manage/ManageArticleView.vue"
+import ManageUserView from "@/views/manage/ManageUserView.vue"
 const routes = [
   {
     path: "/",
@@ -34,6 +38,22 @@ const routes = [
     path: "/index",
     name: "blog_index",
     component: HomeIndexView,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path:"/user/:id/following",
+    name:"user_following",
+    component: UserFollowingView,
+    meta: {
+      requireAuth: true
+    }
+  },
+  {
+    path:"/user/:id/followers",
+    name:"user_followers",
+    component: UserFollowersView,
     meta: {
       requireAuth: true
     }
@@ -68,7 +88,7 @@ const routes = [
       requireAuth: true
     }
   },{
-    path: "/user/home",
+    path: "/user/:id",
     name: "user_home_index",
     component: UserHomeIndexView,
     meta: {
@@ -76,25 +96,25 @@ const routes = [
     },
   },
   {
-    path: "/category/list",
+    path: "/category/list/:id",
     name: "category_list",
     component:CategoryListView,
     requireAuth: true
   },
   {
-    path: "/category/add",
+    path: "/category/add/:id",
     name: "category_add",
     component:CategoryAddView,
     requireAuth: true
   },
   {
-    path: "/user/article/list",
+    path: "/user/:id/article/list",
     name: "my_article_list",
     component:MyArticleListView,
     requireAuth: true
   },
   {
-    path: "/user/collect",
+    path: "/user/collect/:id",
     name: "my_collect_list",
     component:MyCollectListView,
     requireAuth: true
@@ -167,6 +187,22 @@ const routes = [
         path: "category/edit",
         name: "manage_category_edit_index",
         component: ManageCategoryEditView,
+        meta: {
+          requireAuth: true
+        },
+      },
+      {
+        path: "article",
+        name: "manage_article_index",
+        component: ManageArticleView,
+        meta: {
+          requireAuth: true
+        },
+      },
+      {
+        path: "user",
+        name: "manage_user_index",
+        component: ManageUserView,
         meta: {
           requireAuth: true
         },

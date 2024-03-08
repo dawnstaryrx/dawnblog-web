@@ -92,6 +92,12 @@
                         <hr class="border border-primary border-1 opacity-5" />
                     </div>
                 </div>
+                <div class="card" style="margin-top: 20px">
+                    <div class="card-body">
+                      排行榜
+                        <hr class="border border-primary border-1 opacity-5" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>

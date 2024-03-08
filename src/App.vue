@@ -1,5 +1,5 @@
 <template>
-  <nav-bar v-if="route_name !== 'manage_index' && route_name !== 'manage_category_examine_index' &&  route_name !== 'manage_category_edit_index'">
+  <nav-bar v-if="route_name !== 'manage_user_index' && route_name !== 'manage_article_index' && route_name !== 'manage_index' && route_name !== 'manage_category_examine_index' &&  route_name !== 'manage_category_edit_index'">
   </nav-bar>
   <router-view></router-view>
 </template>

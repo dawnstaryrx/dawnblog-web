@@ -7,26 +7,37 @@
             <img :src="this.avatar" alt="" style="width: 100%" />
             <hr class="border border-primary border-1 opacity-5" />
             <div style="text-align: center;font-size: large;font-weight: 1000;">
-              {{ now_user.username }}
+              {{ this.to_user.username }}
             </div>
             <div style="text-align: center;font-size: medium;font-weight: 500;"></div>
             <hr class="border border-primary border-1 opacity-5" />
             <div style="text-align: center" class="row">
               <div class="col-3">
                 <div style="font-size: medium;font-weight: 600;color: gray;">
-                  关注
+                  <router-link :to="'/user/'+to_user.id+'/following'" style="text-decoration: none; color: gray;">
+                    关注
+                  </router-link>
                 </div>
-                <div>5</div>
+                <div>
+                  {{ to_user.followNum != null ? to_user.followNum : 0 }}
+                </div>
               </div>
               <div class="col-3">
                 <div style="font-size: medium;font-weight: 600;color: gray;">
-                  粉丝
+                  <router-link :to="'/user/'+to_user.id+'/followers'" style="text-decoration: none; color: gray;">
+                    粉丝
+                  </router-link>
                 </div>
-                <div>100</div>
+                <div>
+                  {{ to_user.fanNum != null ? to_user.fanNum : 0 }}
+                </div>
               </div>
               <div class="col-3">
                 <div style="font-size: medium;font-weight: 600;color: gray;">
-                  文章
+                  <router-link :to="{ name: 'my_article_list' }" style="text-decoration: none; color: gray;">
+                    文章
+                  </router-link>
+                  
                 </div>
                 <div>{{ article_num }}</div>
               </div>
@@ -34,7 +45,7 @@
                 <div style="font-size: medium;font-weight: 600;color: gray;">
                   硬币
                 </div>
-                <div>{{ coin_num }}</div>
+                <div>{{ to_user.coin }}</div>
               </div>
             </div>
           </div>
@@ -52,23 +63,31 @@
                 <router-link :class="route_name == 'my_article_list' ? 'nav-link active' : 'nav-link'"
                   aria-current="page" :to="{ name: 'my_article_list' }">文章</router-link>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown" v-if="now_user.id === to_user.id">
                 <router-link
                   :class="route_name == 'category_list' || route_name == 'category_add' ? 'nav-link dropdown-toggle active' : 'nav-link dropdown-toggle'"
-                  data-bs-toggle="dropdown" :to="{ name: 'category_list' }" role="button"
+                  data-bs-toggle="dropdown" :to="'/category/list/'+to_user.id" role="button"
                   aria-expanded="false">分类</router-link>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" >
                   <li>
-                    <router-link class="dropdown-item" :to="{ name: 'category_list' }">分类列表</router-link>
+                    <router-link class="dropdown-item" :to="'/category/list/'+to_user.id">分类列表</router-link>
                   </li>
                   <li>
-                    <router-link class="dropdown-item" :to="{ name: 'category_add' }">新增分类</router-link>
+                    <router-link class="dropdown-item" :to="'/category/add/'+to_user.id">新增分类</router-link>
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" v-if="now_user.id === to_user.id">
                 <router-link :class="route_name == 'my_collect_list' ? 'nav-link active' : 'nav-link'"
-                  aria-current="page" :to="{ name: 'my_collect_list' }">收藏夹</router-link>
+                  aria-current="page" :to="'/user/collect/'+to_user.id">收藏夹</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :class="route_name == 'user_following' ? 'nav-link active' : 'nav-link'"
+                  aria-current="page" :to="'/user/'+to_user.id+'/following'">关注</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :class="route_name == 'user_followers' ? 'nav-link active' : 'nav-link'"
+                  aria-current="page" :to="'/user/'+to_user.id+'/followers'">粉丝</router-link>
               </li>
             </ul>
           </div>
@@ -90,23 +109,27 @@ import {articleNumGetByUserIdService} from "@/api/article.js"
 import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 import { useUserInfoStore } from '@/stores/userInfo.js'
+import {userInfoByIdService} from '@/api/user.js'
 
 export default {
   data() {
     return {
       avatar: "",
-      coin_num: 0,
       article_num: 0,
-      now_user:{}
+      now_user:{},
+      to_user:{},
+      id:0,
     }
   },
   created() {
+    this.id = this.$route.params.id
+    this.to_user = userInfoByIdService(this.id).data
+
     const userInfoStore = useUserInfoStore()
     this.avatar = userInfoStore.info.avatar
-    this.coin_num = userInfoStore.info.coin
     // 文章数目 
     this.now_user = userInfoStore.info
-    this.article_num = articleNumGetByUserIdService(this.now_user.id).data
+    this.article_num = articleNumGetByUserIdService(this.to_user.id).data
   },
   setup() {
     const route = useRoute();

@@ -150,14 +150,18 @@
                             <div class="col-4" style="color: gray;font-weight: bolder;text-align: center;">
                                 粉丝
                                 <div style="color: black;">
-                                    33
+                                    {{ article_user.fanNum != null ? article_user.fanNum  : 0 }}
                                 </div>
                             </div>
                         </div>
                         <div v-if="article_user.id !== now_user.id" class="row" style="padding-top: 10px;">
                             <div class="col" @click="focusOn()">
-                                <button v-if="is_focus_on === -1" class="btn btn-primary col-12">+ 关注</button>
-                                <button v-else class="btn btn-light col-12">已关注</button>
+                                <button @click="follow()" v-if="isFollowing() === 0" class="btn btn-primary col-12">
+                                    + 关注
+                                </button>
+                                <button @click="disfollow()" v-else class="btn btn-light col-12">
+                                    已关注
+                                </button>
                             </div>
                             <div class="col">
                                 <button class="btn btn-outline-secondary col-12">发私信</button>
@@ -165,15 +169,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" style="margin-top: 20px">
-                    <div class="card-body">
-                        <hr class="border border-primary border-1 opacity-5" />
-                        
-                        
-                    </div>
-                </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -187,6 +183,8 @@ import { useUserInfoStore } from '@/stores/userInfo.js'
 import { timeago } from '@/utils/formatTime'
 import {commentLikeService, commentDislikeService, commentGetLikeNumService, commentIsLikedService} from '@/api/comment.js'
 import {articleCollectService, articleDiscollectService, articleIsCollectedService} from "@/api/collect.js"
+import { userFollowService, userDisfollowService, userIsfollowingService } from '@/api/follow.js';
+
 
 export default {
     mounted() {
@@ -329,6 +327,26 @@ export default {
         isCollected(articleId){
             return articleIsCollectedService(articleId).data
         },
+        // 关注
+        follow(){
+            if(userIsfollowingService(this.now_user.id, this.article_user.id).data === 1){
+                return;
+            }
+            userFollowService(this.article_user.id);
+            let res = userInfoByIdService(this.article.author)
+            this.article_user = res.data
+        },
+        disfollow(){
+            if(userIsfollowingService(this.now_user.id, this.article_user.id).data === 0){
+                return;
+            }
+            userDisfollowService(this.article_user.id);
+            let res = userInfoByIdService(this.article.author)
+            this.article_user = res.data
+        },
+        isFollowing(){
+            return userIsfollowingService(this.now_user.id, this.article_user.id).data;
+        }
     },
 
 }

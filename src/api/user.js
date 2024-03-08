@@ -271,3 +271,49 @@ export const userAvatarUpdateService = (file) => {
     })
     return result;
 }
+// 获取全部用户
+export const userListGetService = () => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: "http://127.0.0.1:8080/user/list",
+        type: "get",
+        async : false,
+        success(resp){
+            result = resp;
+        },
+        error(resp){
+            result = resp;
+        }
+    })
+    return result;
+}
+// 改用户权限
+export const userRoleChangeService = (id, role) => {
+    const tokenStore = useTokenStore()
+    var nowtoken = tokenStore.token
+    var result;
+    $.ajax({
+        headers: {
+            "Authorization": nowtoken
+        },
+        url: "http://127.0.0.1:8080/user/role",
+        data:{
+            id:id,
+            role:role,
+        },
+        type: "patch",
+        async : false,
+        success(resp){
+            result = resp;
+        },
+        error(resp){
+            result = resp;
+        }
+    })
+    return result;
+}

@@ -57,7 +57,7 @@
               <!-- {{ username }} -->
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><router-link class="dropdown-item" :to="{ name: 'user_home_index' }">我的空间</router-link></li>
+              <li><router-link class="dropdown-item" :to="'/user/'+id">我的空间</router-link></li>
               <li><router-link class="dropdown-item" :to="{ name: 'user_info_index' }">个人信息</router-link></li>
               <li v-if='role === "2"'><router-link class="dropdown-item" :to="{ name: 'manage_index' }">后台管理</router-link>
               </li>
@@ -132,10 +132,11 @@ export default {
     const userInfoStore = useUserInfoStore()
     this.role = (userInfoStore.info.role) + ''
     this.avatar = userInfoStore.info.avatar
-
+    this.id = userInfoStore.info.id
   },
   data() {
     return {
+      id:0,
       username: "",
       avatar: "",
       role: ''

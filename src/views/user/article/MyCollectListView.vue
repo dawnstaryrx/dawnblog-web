@@ -20,8 +20,14 @@
               {{ getArticleInfo(item.articleId).title }}
             </router-link>
           </td>
-          <td>{{ getUserInfo(getArticleInfo(item.articleId).author).username  }}</td>
-          <td>{{ item.createTime }}</td>
+          <td>
+            <span v-if="getArticleInfo(item.articleId).author != 0">
+              {{ getUserInfo(getArticleInfo(item.articleId).author).username  }}
+            </span>
+            </td>
+          <td>
+            <span v-if="getArticleInfo(item.articleId).author != 0">{{ item.createTime }}</span>
+          </td>
           <td>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
             :data-bs-target=gernerateDBTd(item.id)>移除</button>
@@ -64,18 +70,32 @@ import {userInfoByIdService} from "@/api/user.js"
 
 export default {
   components: { UserNavBar },
+  created(){
+        this.id = this.$route.params.id
+        this.to_user = userInfoByIdService(this.id).data
+  },
   mounted() {
     let result = getCollectListService();
     this.collections = result.data
   },
   data(){
     return{
-      collections:{}
+      collections:{},
+      to_user:{},
+      id:0,
     }
   },
   methods:{
     getArticleInfo(id){
-      return articleDetailShowService(id).data
+      if(articleDetailShowService(id).data != null){
+        return articleDetailShowService(id).data
+      }else{
+        return {
+          title:'已被删除',
+          author:0,
+        }
+      }
+      
     },
     getUserInfo(id){
       return userInfoByIdService(id).data;

@@ -65,7 +65,7 @@ export const articleListShowService = (pageNum, pageSize, state) => {
 }
 
 // 获取我的文章列表
-export const articleMyListShowService = (pageNum, pageSize, state) => {
+export const articleMyListShowService = (pageNum, pageSize, state, id) => {
   const tokenStore = useTokenStore()
   var nowtoken = tokenStore.token
 
@@ -78,7 +78,8 @@ export const articleMyListShowService = (pageNum, pageSize, state) => {
     data: {
       pageNum: pageNum,
       pageSize: pageSize,
-      state: state
+      state: state,
+      userId: id,
     },
     type: "get",
     async: false,
