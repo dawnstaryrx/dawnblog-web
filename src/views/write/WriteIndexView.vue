@@ -22,8 +22,8 @@
           <div class="col-md-2">
             <div class="form-floating" >
               <select class="form-select" id="floatingSelectGrid" v-model="state">
-                <option value=1>仅本人可见</option>
-                <option value=2>关注者可见</option>
+                <!-- <option value=1>仅本人可见</option>
+                <option value=2>关注者可见</option> -->
                 <option value=3 selected>所有人可见</option>
               </select>
               <label for="floatingSelectGrid">可见范围</label>
@@ -45,8 +45,11 @@
               草稿箱
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Dropdown link</a></li>
-              <li><a class="dropdown-item" href="#">Dropdown link</a></li>
+              <li v-for="draft in articles" :key="draft.id">
+                <router-link class="dropdown-item" :to="'/article/'+draft.id + '/edit'">
+                  {{ draft.title }}
+                </router-link>
+              </li>
             </ul>
           </div>
         </span>
@@ -62,8 +65,13 @@ import {categoryListSuccessShowService} from "@/api/category.js"
 import {articleAddService} from "@/api/article.js"
 import commonUtil from '@/utils/alertUtil';
 import { useUserInfoStore } from '@/stores/userInfo.js'
+import { articleMyListShowService } from "@/api/article.js"
 export default {
   created(){
+    let result = articleMyListShowService(this.pageNum, this.pageSize, 0);
+    console.log(result)
+    this.articles = JSON.parse(JSON.stringify(result.data.items))
+
     let categoryList = categoryListSuccessShowService().data;
     categoryList.forEach(element => {
       if(element.state === 2)
@@ -76,11 +84,14 @@ export default {
   },
   data() {
     return {
+      pageNum:1,
+      pageSize:10,
       text: '',
       title: '',
       category: '',
       state:'3',
       categoryList: [],
+      articles: {}
     }
   },
 

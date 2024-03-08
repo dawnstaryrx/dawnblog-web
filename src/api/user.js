@@ -271,4 +271,3 @@ export const userAvatarUpdateService = (file) => {
     })
     return result;
 }
-

@@ -27,12 +27,11 @@
           </li>
           <li class="nav-item dropdown">
             <router-link
-              :class="route_name == 'annouce_index' || route_name == 'resouce_index' ? 'nav-link dropdown-toggle active' : 'nav-link dropdown-toggle'"
-              :to="{ name: 'annouce_index' }" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              :class="route_name == 'resouce_index' ? 'nav-link dropdown-toggle active' : 'nav-link dropdown-toggle'"
+              :to="{ name: 'resouce_index' }" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               更多
             </router-link>
             <ul class="dropdown-menu">
-              <li><router-link class="dropdown-item" :to="{ name: 'annouce_index' }">公告</router-link></li>
               <li><router-link class="dropdown-item" :to="{ name: 'resouce_index' }">资源</router-link></li>
               <li><a class="dropdown-item" href="https://gpt.cosmobigbang.cn/web/#/">ChatGPT</a></li>
             </ul>

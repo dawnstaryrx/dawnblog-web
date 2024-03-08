@@ -1,18 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // 主页面
-import AnnouceView from "@/views/annouce/AnnouceView"
 import NotFound from "@/views/error/NotFound"
 import HomeIndexView from "@/views/home/HomeIndexView"
 import MusicIndexView from "@/views/music/MusicIndexView"
 import RandomIndexView from "@/views/random/RandomIndexView"
 import UserHomeIndexView from "@/views/user/UserHomeIndexView"
 import UserInfoIndexView from "@/views/user/UserInfoIndexView"
-import WriteIndexView from "@/views/write/WriteIndexView"
 import ResouceIndexView from "@/views/resouce/ResouceIndexView"
 import UserLoginView from "@/views/user/UserLoginView"
 import UserRegisterView from "@/views/user/UserRegisterView"
 // 文章
+import WriteIndexView from "@/views/write/WriteIndexView"
+import EditIndexView from "@/views/write/EditIndexView.vue"
 import ArticleIndexView from "@/views/home/ArticleIndexView"
+import MyCollectListView from '@/views/user/article/MyCollectListView';
 // 用户个人空间
 import CategoryListView from '@/views/user/category/CategoryListView.vue'
 import CategoryAddView from '@/views/user/category/CategoryAddView.vue'
@@ -46,9 +47,9 @@ const routes = [
     }
   },
   {
-    path: "/annouce",
-    name: "annouce_index",
-    component: AnnouceView,
+    path: "/article/:id/edit",
+    name: "edit_index",
+    component: EditIndexView,
     meta: {
       requireAuth: true
     }
@@ -90,6 +91,12 @@ const routes = [
     path: "/user/article/list",
     name: "my_article_list",
     component:MyArticleListView,
+    requireAuth: true
+  },
+  {
+    path: "/user/collect",
+    name: "my_collect_list",
+    component:MyCollectListView,
     requireAuth: true
   },
   {
