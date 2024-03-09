@@ -200,3 +200,31 @@ export const articleNumGetByUserIdService = (id) => {
   })
   return result;
 }
+// 搜索
+export const articleSearchService = (pageNum, pageSize,searchInfo, state) => {
+  const tokenStore = useTokenStore()
+  var nowtoken = tokenStore.token
+
+  var result;
+  $.ajax({
+    headers: {
+      "Authorization": nowtoken
+    },
+    url: "http://127.0.0.1:8080/search",
+    data: {
+      pageNum: pageNum,
+      pageSize: pageSize,
+      searchInfo: searchInfo,
+      state: state,
+    },
+    type: "get",
+    async: false,
+    success(resp) {
+      result = resp;
+    },
+    error(resp) {
+      result = resp;
+    }
+  })
+  return result;
+}
