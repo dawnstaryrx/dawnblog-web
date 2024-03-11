@@ -49,28 +49,6 @@
         </div>
       </div>
       <hr class="border border-1 opacity-5" />
-
-    </div>
-
-
-    <div style="margin: auto;">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" @click="this.pageNum--; updateArticles(this.pageNum)" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a @click="updateArticles(1)" class="page-link" href="#">1</a></li>
-          <li class="page-item"><a @click="updateArticles(2)" class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" @click="this.pageNum++; updateArticles(this.pageNum)" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
     </div>
 
   </user-nav-bar>
@@ -98,8 +76,8 @@ export default {
   data() {
     return {
       pageNum: 1,
-      pageSize: 10,
-      articles: [],
+      pageSize: 1000000,
+      articles: {},
       to_user:{},
       now_user:{},
       id:'',
@@ -116,6 +94,7 @@ export default {
       this.pageNum = page
       let result = articleMyListShowService(this.pageNum, this.pageSize, 3);
       this.articles = JSON.parse(JSON.stringify(result.data.items))
+      console.log(JSON.parse(JSON.stringify(result.data.items)))
     },
     deleteArticle(id) {
       let result = articleDeleteService(id);

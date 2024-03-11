@@ -6,7 +6,6 @@ import MusicIndexView from "@/views/music/MusicIndexView"
 import RandomIndexView from "@/views/random/RandomIndexView"
 import UserHomeIndexView from "@/views/user/UserHomeIndexView"
 import UserInfoIndexView from "@/views/user/UserInfoIndexView"
-import ResouceIndexView from "@/views/resouce/ResouceIndexView"
 import UserLoginView from "@/views/user/UserLoginView"
 import UserRegisterView from "@/views/user/UserRegisterView"
 // 文章
@@ -139,14 +138,6 @@ const routes = [
     path: "/random",
     name: "random_index",
     component: RandomIndexView,
-    meta: {
-      requireAuth: true
-    }
-  },
-  {
-    path: "/resouce",
-    name: "resouce_index",
-    component: ResouceIndexView,
     meta: {
       requireAuth: true
     }
